@@ -23,13 +23,15 @@ public class Board {
 		return board[y][x];
 	}
 	
-	public void applyMove(int x, int y, Symbol symb) {
+	public boolean applyMove(int x, int y, Symbol symb) {
 		Square sq = getSquare(x, y);
 		if (sq.occupiedBy() == Symbol.NONE) {
 			sq.setOccupier(symb);
 			lastMoveX = x;
 			lastMoveY = y;
+			return true;
 		}
+		return false;
 	}
 	
 	public void undoLastMove() {

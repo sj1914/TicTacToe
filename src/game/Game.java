@@ -6,7 +6,7 @@ public class Game {
 	
 	private Board board;
 	private Symbol currentPlayer = Symbol.X;
-	private int numOfMoves = 0;
+	private int movesPlayed = 0;
 	private static final int TOTAL_MOVES = 9;
 	
 	public Game(Board board) {
@@ -29,15 +29,22 @@ public class Game {
 		return currentPlayer;
 	}
 	
-	public void applyMove(int x, int y) {
-		board.applyMove(x,  y, currentPlayer);
-		numOfMoves++;
-		currentPlayer = currentPlayer == Symbol.X ? Symbol.O : Symbol.X;
+	public int movesLeft() {
+		return TOTAL_MOVES - movesPlayed;
+	}
+	
+	public boolean applyMove(int x, int y) {
+		if (board.applyMove(x,  y, currentPlayer)) {
+			movesPlayed++;
+			currentPlayer = currentPlayer == Symbol.X ? Symbol.O : Symbol.X;
+			return true;
+		}
+		return false;
 	}
 	
 	public void undoLastMove() {
 		board.undoLastMove();
-		numOfMoves--;
+		movesPlayed--;
 		currentPlayer = currentPlayer == Symbol.X ? Symbol.O : Symbol.X;
 	}
 	
@@ -53,6 +60,16 @@ public class Game {
 	
 	public boolean isOver() {
 		return hasWon(Symbol.O) || hasWon(Symbol.X);
+	}
+	
+	public Symbol getResult() {
+		if (hasWon(Symbol.O)) {
+			return Symbol.O;
+		} else if (hasWon(Symbol.X)) {
+			return Symbol.X;
+		} else {
+			return Symbol.NONE;
+		}
 	}
 	
 	public List<Square> getAvailableMoves() {
