@@ -25,6 +25,10 @@ public class Game {
 		return boardCopy;
 	}
 	
+//	public void switchPlayer() {
+//		currentPlayer = Symbol.O;
+//	}
+	
 	public Symbol getCurrentPlayer() {
 		return currentPlayer;
 	}

@@ -30,9 +30,15 @@ public class TicTacToe {
 		while (!game.isOver()) {
 			if(!computerFirst) {
 				challengerMove(scanner);
+				if (game.isOver()) {
+					break;
+				}
 				computerMove(scanner);
 			} else {
 				computerMove(scanner);
+				if (game.isOver()) {
+					break;
+				}
 				challengerMove(scanner);
 			}
 		}
